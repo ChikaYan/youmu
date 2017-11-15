@@ -3,7 +3,7 @@ from discord.ext import commands
 import asyncio
 
 youmu = discord.ext.commands.Bot(command_prefix="!?",
-                                 description="Discord bot for converting Japanese hiragana and katakana to romaji.",
+                                 description="Discord bot to deal with touhou stuff",
                                  pm_help=True)
 japDic = {
     "ぁ": "a", "あ": "a", "ぃ": "i", "い": "i", "ぅ": "u", "う": "u", "ぇ": "e", "え": "e", "ぉ": "o", "お": "o", "か": "ka",
