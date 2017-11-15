@@ -42,4 +42,5 @@ async def if_jap(message):
     return False
 
 
-youmu.run('Mzc5MTkyMzU1MjU0ODI5MDU3.DOmeAQ.rCdugBhUDQSpGfnrtHGtk6OjBw0')
+keyConfig = open("key.config", "r")
+youmu.run(keyConfig.readline())
