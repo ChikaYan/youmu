@@ -1,1 +1,1 @@
-rooms = {"example": {"ID": "sokuyanroom", "PW": "soku"}}
+rooms = {'example': 'examplepw', 'sokuyanroom': 'soku'}

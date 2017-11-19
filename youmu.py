@@ -6,6 +6,7 @@ import asyncio
 from config.keyconfig import KEY
 from config.japdicconfig import JAPDIC
 from config.sokuhostconfig import hosts
+from config.hamachiconfig import rooms
 
 hostlist = {}
 
@@ -22,10 +23,10 @@ async def on_ready():
     print("------")
 
 
-@youmu.event
-async def on_message(ctx):
-    if ctx.content.startswith("谢指教"):
-        await ctx.channel.send("<@{}>谢你个头".format(ctx.author.id))
+# @youmu.event
+# async def on_message(ctx):
+#     if ctx.content.startswith("谢指教"):
+#         await ctx.channel.send("<@{}>谢你个头".format(ctx.author.id))
 
 
 @youmu.command()
@@ -38,7 +39,6 @@ async def addhost(ctx, *args):
             if args[1] == "hamachi":
                 hamachi = True
                 room = args[2]
-
         if await valid_ip(ip):
             hosts[ctx.author.id] = {"IP": ip, "hamachi": hamachi, "roomID": room}
             f = open("./config/sokuhostconfig.py", "w")
@@ -62,8 +62,11 @@ async def valid_ip(ip):
 async def host(ctx):
     global hostlist
     if ctx.author.id in hosts:
-        hostlist[ctx.author] = await ctx.channel.send(
-            "{} hosting at {}".format(ctx.author.name, hosts[ctx.author.id]["IP"]))
+        text = "`{}` hosting at `{}`".format(ctx.author.name, hosts[ctx.author.id]["IP"])
+        if hosts[ctx.author.id]["hamachi"]:
+            text += "\n with hamachi ID: `{}` PW: `{}`".format(hosts[ctx.author.id]["roomID"],
+                                                               rooms[hosts[ctx.author.id]["roomID"]])
+        hostlist[ctx.author] = await ctx.channel.send(text)
     else:
         await ctx.channel.send("Unknown host!")
         await ctx.channel.send("Please record your IP using !?addhost first")
@@ -75,6 +78,15 @@ async def endhost(ctx):
     if ctx.author in hostlist:
         await hostlist[ctx.author].edit(content="{} has ended hosting".format(ctx.author.name))
         hostlist.pop(ctx.author)
+
+
+@youmu.command()
+async def addhamachi(ctx, roomid, pw):
+    rooms[roomid] = pw
+    await ctx.channel.send("Hamachi room information has been added")
+    f = open("./config/hamachiconfig.py", "w")
+    f.write("rooms = " + repr(rooms))
+    f.close()
 
 
 youmu.run(KEY)
