@@ -22,6 +22,12 @@ async def on_ready():
     print("------")
 
 
+@youmu.event
+async def on_message(ctx):
+    if ctx.content.startswith("谢指教"):
+        await ctx.channel.send("<@{}>谢你个头".format(ctx.author.id))
+
+
 @youmu.command()
 async def addhost(ctx, *args):
     if args:
@@ -56,7 +62,8 @@ async def valid_ip(ip):
 async def host(ctx):
     global hostlist
     if ctx.author.id in hosts:
-        hostlist[ctx.author] = await ctx.channel.send("{} hosting at {}".format(ctx.author.name, hosts[ctx.author.id]["IP"]))
+        hostlist[ctx.author] = await ctx.channel.send(
+            "{} hosting at {}".format(ctx.author.name, hosts[ctx.author.id]["IP"]))
     else:
         await ctx.channel.send("Unknown host!")
         await ctx.channel.send("Please record your IP using !?addhost first")
