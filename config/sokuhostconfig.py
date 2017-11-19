@@ -1,1 +1,1 @@
-hosts = {'example': '192.168.0.1:10800', 270249751193059330: '25.73.133.15:10800'}
+hosts = {'example': {'IP': '192.168.0.1:10800', 'hamachi': False, 'roomID': None}, 270249751193059330: {'IP': '25.73.133.15:10800', 'hamachi': True, 'roomID': 'sokuyanroom'}}

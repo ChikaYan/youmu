@@ -16,41 +16,34 @@ youmu = discord.ext.commands.Bot(command_prefix="!?",
 
 @youmu.event
 async def on_ready():
-    print('Logged in as')
+    print("Logged in as")
     print(youmu.user.name)
     print(youmu.user.id)
-    print('------')
+    print("------")
 
 
 @youmu.command()
-async def test(message):
-    tmp = await message.channel.send('Calculating messages...')
-    counter = 0
-    async for log in message.channel.history():
-        if await if_jap(log):
-            counter += 1
+async def addhost(ctx, *args):
+    if args:
+        ip = args[0]
+        hamachi = False
+        room = ""
+        if len(args) == 3:
+            if args[1] == "hamachi":
+                hamachi = True
+                room = args[2]
 
-    await tmp.edit()
-
-
-async def if_jap(message):
-    for char in message.content:
-        if char in JAPDIC:
-            return True
-    return False
-
-
-@youmu.command()
-async def addhost(ctx, ip):
-    if await valid_ip(ip):
-        hosts[ctx.author.id] = ip
-        f = open("./config/sokuhostconfig.py", "w")
-        f.write("hosts = " + repr(hosts))
-        f.close()
-        await ctx.channel.send("Host IP has been added")
-    else:
-        await ctx.channel.send("Invalid IP format")
-        await ctx.channel.send("Example: {}".format(hosts["example"]))
+        if await valid_ip(ip):
+            hosts[ctx.author.id] = {"IP": ip, "hamachi": hamachi, "roomID": room}
+            f = open("./config/sokuhostconfig.py", "w")
+            f.write("hosts = " + repr(hosts))
+            f.close()
+            await ctx.channel.send("Host IP has been added")
+            if not hamachi:
+                await ctx.channel.send("Add `hamachi [hamachi room name]` to indicate you are using hamachi")
+        else:
+            await ctx.channel.send("Invalid IP format")
+            await ctx.channel.send("Example: {}".format(hosts["example"]["IP"]))
 
 
 async def valid_ip(ip):
@@ -63,7 +56,7 @@ async def valid_ip(ip):
 async def host(ctx):
     global hostlist
     if ctx.author.id in hosts:
-        hostlist[ctx.author] = await ctx.channel.send("{} hosting at {}".format(ctx.author.name, hosts[ctx.author.id]))
+        hostlist[ctx.author] = await ctx.channel.send("{} hosting at {}".format(ctx.author.name, hosts[ctx.author.id]["IP"]))
     else:
         await ctx.channel.send("Unknown host!")
         await ctx.channel.send("Please record your IP using !?addhost first")
