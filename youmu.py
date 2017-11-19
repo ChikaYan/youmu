@@ -44,9 +44,9 @@ async def addhost(ctx, *args):
             f = open("./config/sokuhostconfig.py", "w")
             f.write("hosts = " + repr(hosts))
             f.close()
-            await ctx.channel.send("Host IP has been added")
+            await ctx.channel.send("Host IP has been added.")
             if not hamachi:
-                await ctx.channel.send("Add `hamachi [hamachi room name]` to indicate you are using hamachi")
+                await ctx.channel.send("Add `hamachi [hamachi room name]` to indicate you are using hamachi.")
         else:
             await ctx.channel.send("Invalid IP format")
             await ctx.channel.send("Example: {}".format(hosts["example"]["IP"]))
@@ -69,21 +69,21 @@ async def host(ctx):
         hostlist[ctx.author] = await ctx.channel.send(text)
     else:
         await ctx.channel.send("Unknown host!")
-        await ctx.channel.send("Please record your IP using !?addhost first")
+        await ctx.channel.send("Please record your IP using !?addhost first.")
 
 
 @youmu.command()
 async def endhost(ctx):
     global hostlist
     if ctx.author in hostlist:
-        await hostlist[ctx.author].edit(content="{} has ended hosting".format(ctx.author.name))
+        await hostlist[ctx.author].edit(content="{} has ended hosting.".format(ctx.author.name))
         hostlist.pop(ctx.author)
 
 
 @youmu.command()
 async def addhamachi(ctx, roomid, pw):
     rooms[roomid] = pw
-    await ctx.channel.send("Hamachi room information has been added")
+    await ctx.channel.send("Hamachi room information has been added.")
     f = open("./config/hamachiconfig.py", "w")
     f.write("rooms = " + repr(rooms))
     f.close()
