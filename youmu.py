@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import discord
+import random
 from discord.ext import commands
 import asyncio
 from config.keyconfig import KEY
@@ -23,10 +24,17 @@ async def on_ready():
     print("------")
 
 
-# @youmu.event
-# async def on_message(ctx):
-#     if ctx.content.startswith("谢指教"):
-#         await ctx.channel.send("<@{}>谢你个头".format(ctx.author.id))
+@youmu.event
+async def on_message(ctx):
+    if ctx.content.startswith("谢指教"):
+        await ctx.channel.send("<@{}>谢你个头".format(ctx.author.id))
+    if ctx.author.id == 272879418827866113 and ctx.content.startswith("<@"):
+        await ctx.channel.send("<@{}> shut up U fag".format(ctx.author.id))
+    if ctx.author.id == 272879418827866113 and random.random() > 0.5:
+        emoji = discord.utils.get(youmu.get_guild(241271400869003265).emojis, name="soku")
+        if emoji:
+            await ctx.add_reaction(emoji)
+    await youmu.process_commands(ctx)
 
 
 @youmu.command()
@@ -87,6 +95,22 @@ async def addhamachi(ctx, roomid, pw):
     f = open("./config/hamachiconfig.py", "w")
     f.write("rooms = " + repr(rooms))
     f.close()
+
+
+@youmu.command()
+async def showhost(ctx):
+    for current_host in hostlist.keys():
+        text = "`{}` hosting at `{}`".format(current_host.name, hosts[current_host.id]["IP"])
+        if hosts[current_host.id]["hamachi"]:
+            text += "\n with hamachi ID: `{}` PW: `{}`".format(hosts[current_host.id]["roomID"],
+                                                               rooms[hosts[current_host.id]["roomID"]])
+        await ctx.channel.send(text)
+
+
+@youmu.command()
+async def fuckfelix(ctx):
+    async for message in ctx.channel.history():
+            await message.clear_reactions()
 
 
 youmu.run(KEY)
