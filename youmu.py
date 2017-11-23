@@ -75,7 +75,7 @@ async def host(ctx, *args):
     if args:
         for arg in args:
             txt += arg + " "
-    txt = ":speaking_head: `{}`".format(txt)
+        txt = ":speaking_head: `{}`".format(txt)
 
     if ctx.author.id in hosts:
         text = "`{}` hosting at `{}` {}".format(ctx.author.name, hosts[ctx.author.id]["IP"], txt)
