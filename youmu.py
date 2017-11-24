@@ -5,8 +5,6 @@ import random
 from discord.ext import commands
 import asyncio
 from config.keyconfig import KEY
-from config.sokuhostconfig import hosts
-from config.hamachiconfig import rooms
 
 bot = discord.ext.commands.Bot(command_prefix="!?",
                                description="Discord bot to deal with touhou stuff",

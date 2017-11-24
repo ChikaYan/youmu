@@ -3,12 +3,11 @@ from discord.ext import commands
 from config.sokuhostconfig import hosts
 from config.hamachiconfig import rooms
 
-hostlist = {}
-
 
 class Soku:
     def __init__(self, bot):
         self.bot = bot
+        self._hostlist = {}
         self._emoji_soku = discord.utils.get(bot.get_guild(241271400869003265).emojis, name="soku")
 
     @commands.command()
@@ -42,7 +41,6 @@ class Soku:
 
     @commands.command()
     async def host(self, ctx, *args):
-        global hostlist
         txt = ""
         if args:
             for arg in args:
@@ -54,7 +52,7 @@ class Soku:
             if hosts[ctx.author.id]["hamachi"]:
                 text += "\n with hamachi ID: `{}` PW: `{}`".format(hosts[ctx.author.id]["roomID"],
                                                                    rooms[hosts[ctx.author.id]["roomID"]])
-            hostlist[ctx.author] = await ctx.channel.send(text)
+            self._hostlist[ctx.author] = await ctx.channel.send(text)
             await ctx.message.add_reaction(self._emoji_soku)
         else:
             await ctx.channel.send("Unknown host!")
@@ -62,10 +60,9 @@ class Soku:
 
     @commands.command()
     async def endhost(self, ctx):
-        global hostlist
-        if ctx.author in hostlist:
-            await hostlist[ctx.author].edit(content="{} has ended hosting.".format(ctx.author.name))
-            hostlist.pop(ctx.author)
+        if ctx.author in self._hostlist:
+            await self._hostlist[ctx.author].edit(content="{} has ended hosting.".format(ctx.author.name))
+            self._hostlist.pop(ctx.author)
         await ctx.message.add_reaction(self._emoji_soku)
 
     @commands.command()
@@ -78,7 +75,7 @@ class Soku:
 
     @commands.command()
     async def showhost(self, ctx):
-        for current_host in hostlist.keys():
+        for current_host in self._hostlist.keys():
             text = "`{}` hosting at `{}`".format(current_host.name, hosts[current_host.id]["IP"])
             if hosts[current_host.id]["hamachi"]:
                 text += "\n with hamachi ID: `{}` PW: `{}`".format(hosts[current_host.id]["roomID"],
