@@ -10,8 +10,6 @@ class Felix:
         self._emoji_soku = discord.utils.get(bot.get_guild(241271400869003265).emojis, name="soku")
 
     async def on_message(self, ctx):
-        if ctx.content.startswith("谢指教"):
-            await ctx.channel.send("<@{}>谢你个头".format(ctx.author.id))
         if ctx.author.id == FELIX_ID and ctx.content.startswith("<@"):
             if self._emoji_soku:
                 await ctx.add_reaction(self._emoji_soku)

@@ -10,6 +10,10 @@ class Soku:
         self._hostlist = {}
         self._emoji_soku = discord.utils.get(bot.get_guild(241271400869003265).emojis, name="soku")
 
+    async def on_message(self, ctx):
+        if ctx.content.startswith("谢指教"):
+            await ctx.channel.send("<@{}>谢你个头".format(ctx.author.id))
+
     @commands.command()
     async def addhost(self, ctx, *args):
         if args:
