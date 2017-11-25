@@ -31,4 +31,4 @@ class Felix:
 
 
 def setup(bot):
-    bot.add_cog((Felix(bot)))
+    bot.add_cog(Felix(bot))

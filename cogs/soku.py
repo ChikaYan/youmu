@@ -99,4 +99,4 @@ class Soku:
 
 
 def setup(bot):
-    bot.add_cog((Soku(bot)))
+    bot.add_cog(Soku(bot))
