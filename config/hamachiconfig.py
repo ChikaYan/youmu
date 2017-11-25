@@ -1,1 +1,1 @@
-rooms = {'example': 'examplepw', 'sokuyanroom': 'soku'}
+rooms = {'example': 'examplepw', 'sokuyanroom': 'soku', 'uclanisocsoku1': 'bontrap'}
