@@ -25,7 +25,10 @@ class Soku:
                     hamachi = True
                     room = args[2]
             if await self.valid_ip(ip):
-                hosts[ctx.author.id] = {"IP": ip, "hamachi": hamachi, "roomID": room}
+                hosts[ctx.author.id] = {
+                    "IP": ip,
+                    "hamachi": hamachi,
+                    "roomID": room}
                 f = open("./config/sokuhostconfig.py", "w")
                 f.write("hosts = " + repr(hosts))
                 f.close()
@@ -96,6 +99,19 @@ class Soku:
     async def glossary(self, ctx):
         await ctx.channel.send("https://hisouten.koumakan.jp/wiki/Glossary")
         await ctx.message.add_reaction(self._emoji_soku)
+
+    @commands.command()
+    async def soku(self, ctx):
+        mentions = ""
+        for id in hosts:
+            if id != "example":
+                mentions += "<@{}>".format(id)
+        await ctx.channel.send(
+            mentions + "\n" + str(self._emoji_soku) + " " + str(self._emoji_soku) + " " + str(self._emoji_soku) + "\n" + str(self._emoji_soku) + " :red_car: " + str(self._emoji_soku) + "\n" + str(self._emoji_soku) + " " + str(self._emoji_soku) + " " + str(self._emoji_soku))
+
+        # @commands.command()
+        # async def test(self, ctx):
+        #     await ctx.channel.send(self._emoji_soku)
 
 
 def setup(bot):
