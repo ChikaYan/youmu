@@ -16,6 +16,6 @@ async def on_ready():
     print("------")
     bot.load_extension("cogs.soku")
     bot.load_extension("cogs.felix")
-
+    bot.load_extension("cogs.romaji")
 
 bot.run(KEY)

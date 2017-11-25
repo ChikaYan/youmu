@@ -11,15 +11,16 @@ class Romaji:
     @commands.command()
     async def romaji(self, ctx):
         async for message in ctx.channel.history(limit=300):
-            if any(key in message.content for key in JAPDIC) and message.id not in self._jap_log:
+            if any(key in message.content for key in JAPDIC) and message.id not in self._jap_log and not message.author.bot:
                 # the message contains japanese but is not converted before
-                await ctx.channel.send("{}:\n {}".format(message.content, await self.convert(message.content)))
+                await ctx.channel.send("{}:\n{}".format(message.content, await self.convert(message.content)))
                 self._jap_log.append(message.id)
+                break
 
     async def convert(self, text):
         for char in text:
             if char in JAPDIC:
-                text.replace(char, JAPDIC[char] + " ")
+                text = text.replace(char, JAPDIC[char] + " ")
         return text
 
 
