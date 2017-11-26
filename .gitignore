@@ -1,3 +1,4 @@
 .idea
 keyconfig.py
 *.pyc
+pixivconfig.py
