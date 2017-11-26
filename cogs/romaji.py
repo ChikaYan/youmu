@@ -10,7 +10,7 @@ class Romaji:
 
     @commands.command()
     async def romaji(self, ctx):
-        async for message in ctx.channel.history(limit=300):
+        async for message in ctx.channel.history(limit=50):
             if any(key in message.content for key in
                    JAPDIC) and message.id not in self._jap_log and not message.author.bot:
                 # the message contains japanese but is not converted before
