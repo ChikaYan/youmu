@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 import os
 
+
 class Pixiv:
     def __init__(self, bot):
         self.bot = bot
@@ -13,7 +14,7 @@ class Pixiv:
         self._mark_min = 100
 
     @commands.command()
-    async def givemetouhou(self, ctx):
+    async def gimme2hu(self, ctx):
         json_result = self._api.search_illust("東方", req_auth=True)
         for i in range(self._search_depth):
             for illust in json_result.illusts:
