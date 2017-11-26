@@ -14,7 +14,7 @@ class Felix:
         if ctx.author.id == FELIX_ID and ctx.content.startswith("<@"):
             if self._emoji_soku:
                 await ctx.add_reaction(self._emoji_soku)
-        if ctx.author.id == FELIX_ID and random.random() > 0.5:
+        if ctx.author.id == FELIX_ID and random.random() > 0.8:
             if self._emoji_soku:
                 await ctx.add_reaction(self._emoji_soku)
 
