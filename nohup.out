@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "main.py", line 3, in <module>
+    from discord.ext import commands
+ModuleNotFoundError: No module named 'discord'
+python3: can't open file 'bot.py': [Errno 2] No such file or directory
+python3: can't open file 'bot.py': [Errno 2] No such file or directory
