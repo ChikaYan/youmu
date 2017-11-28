@@ -3,3 +3,4 @@ keyconfig.py
 *.pyc
 pixivconfig.py
 pic
+hostkey
