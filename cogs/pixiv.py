@@ -20,10 +20,10 @@ class Pixiv:
             for illust in json_result.illusts:
                 if illust.total_bookmarks >= self._mark_min and not illust.is_bookmarked:
                     # the pic is popular and has not been sent before
-                    self._api.download(illust.image_urls.large, name="touhou.jpg", path="./pic", )
-                    await ctx.channel.send(file=discord.File("./pic/touhou.jpg"))
+                    self._api.download(illust.image_urls.large, name="touhou.jpg", path="./img", )
+                    await ctx.channel.send(file=discord.File("./img/touhou.jpg"))
                     self._api.illust_bookmark_add(illust.id)
-                    os.remove("./pic/touhou.jpg")
+                    os.remove("./img/touhou.jpg")
                     return
             next_page = self._api.parse_qs(json_result.next_url)
             json_result = self._api.search_illust(**next_page)
