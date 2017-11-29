@@ -107,11 +107,9 @@ class Soku:
             if id != "example":
                 mentions += "<@{}>".format(id)
         await ctx.channel.send(
-            mentions + "\n" + str(self._emoji_soku) + " " + str(self._emoji_soku) + " " + str(self._emoji_soku) + "\n" + str(self._emoji_soku) + " :red_car: " + str(self._emoji_soku) + "\n" + str(self._emoji_soku) + " " + str(self._emoji_soku) + " " + str(self._emoji_soku))
-
-        # @commands.command()
-        # async def test(self, ctx):
-        #     await ctx.channel.send(self._emoji_soku)
+            mentions + "\n" + str(self._emoji_soku) + " " + str(self._emoji_soku) + " " + str(
+                self._emoji_soku) + "\n" + str(self._emoji_soku) + " :red_car: " + str(self._emoji_soku) + "\n" + str(
+                self._emoji_soku) + " " + str(self._emoji_soku) + " " + str(self._emoji_soku))
 
 
 def setup(bot):
