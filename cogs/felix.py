@@ -8,15 +8,15 @@ FELIX_ID = 272879418827866113
 class Felix:
     def __init__(self, bot):
         self.bot = bot
-        self._emoji_soku = discord.utils.get(bot.get_guild(241271400869003265).emojis, name="soku")
+        self.emoji_soku = discord.utils.get(bot.get_guild(241271400869003265).emojis, name="soku")
 
     async def on_message(self, ctx):
         if ctx.author.id == FELIX_ID and ctx.content.startswith("<@"):
-            if self._emoji_soku:
-                await ctx.add_reaction(self._emoji_soku)
+            if self.emoji_soku:
+                await ctx.add_reaction(self.emoji_soku)
         if ctx.author.id == FELIX_ID and random.random() > 0.8:
-            if self._emoji_soku:
-                await ctx.add_reaction(self._emoji_soku)
+            if self.emoji_soku:
+                await ctx.add_reaction(self.emoji_soku)
 
     @commands.command()
     async def fuckfelix(self, ctx):

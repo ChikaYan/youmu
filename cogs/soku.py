@@ -7,8 +7,8 @@ from config.hamachiconfig import rooms
 class Soku:
     def __init__(self, bot):
         self.bot = bot
-        self._hostlist = {}
-        self._emoji_soku = discord.utils.get(bot.get_guild(241271400869003265).emojis, name="soku")
+        self.hostlist = {}
+        self.emoji_soku = discord.utils.get(bot.get_guild(241271400869003265).emojis, name="soku")
 
     async def on_message(self, ctx):
         if ctx.content.startswith("谢指教"):
@@ -33,7 +33,7 @@ class Soku:
                 f.write("hosts = " + repr(hosts))
                 f.close()
                 await ctx.channel.send("Host IP has been added.")
-                await ctx.message.add_reaction(self._emoji_soku)
+                await ctx.message.add_reaction(self.emoji_soku)
                 if not hamachi:
                     await ctx.channel.send("Add `hamachi [hamachi room name]` to indicate you are using hamachi.")
             else:
@@ -59,18 +59,18 @@ class Soku:
             if hosts[ctx.author.id]["hamachi"]:
                 text += "\n with hamachi ID: `{}` PW: `{}`".format(hosts[ctx.author.id]["roomID"],
                                                                    rooms[hosts[ctx.author.id]["roomID"]])
-            self._hostlist[ctx.author] = await ctx.channel.send(text)
-            await ctx.message.add_reaction(self._emoji_soku)
+            self.hostlist[ctx.author] = await ctx.channel.send(text)
+            await ctx.message.add_reaction(self.emoji_soku)
         else:
             await ctx.channel.send("Unknown host!")
             await ctx.channel.send("Please record your IP using !?addhost first.")
 
     @commands.command()
     async def endhost(self, ctx):
-        if ctx.author in self._hostlist:
-            await self._hostlist[ctx.author].edit(content="{} has ended hosting.".format(ctx.author.name))
-            self._hostlist.pop(ctx.author)
-        await ctx.message.add_reaction(self._emoji_soku)
+        if ctx.author in self.hostlist:
+            await self.hostlist[ctx.author].edit(content="{} has ended hosting.".format(ctx.author.name))
+            self.hostlist.pop(ctx.author)
+        await ctx.message.add_reaction(self.emoji_soku)
 
     @commands.command()
     async def addhamachi(self, ctx, roomid, pw):
@@ -82,23 +82,23 @@ class Soku:
 
     @commands.command()
     async def showhost(self, ctx):
-        for current_host in self._hostlist.keys():
+        for current_host in self.hostlist.keys():
             text = "`{}` hosting at `{}`".format(current_host.name, hosts[current_host.id]["IP"])
             if hosts[current_host.id]["hamachi"]:
                 text += "\n with hamachi ID: `{}` PW: `{}`".format(hosts[current_host.id]["roomID"],
                                                                    rooms[hosts[current_host.id]["roomID"]])
             await ctx.channel.send(text)
-        await ctx.message.add_reaction(self._emoji_soku)
+        await ctx.message.add_reaction(self.emoji_soku)
 
     @commands.command()
     async def givemesoku(self, ctx):
         await ctx.channel.send("Here you are:\nhttps://mega.nz/#!ccJhWTYA!pOezX4yFenh5o1_k55KCSF34fXv8EdkvLHu97m-kXZ4")
-        await ctx.message.add_reaction(self._emoji_soku)
+        await ctx.message.add_reaction(self.emoji_soku)
 
     @commands.command()
     async def glossary(self, ctx):
         await ctx.channel.send("https://hisouten.koumakan.jp/wiki/Glossary")
-        await ctx.message.add_reaction(self._emoji_soku)
+        await ctx.message.add_reaction(self.emoji_soku)
 
     @commands.command()
     async def soku(self, ctx):
@@ -107,9 +107,9 @@ class Soku:
             if id != "example":
                 mentions += "<@{}>".format(id)
         await ctx.channel.send(
-            mentions + "\n" + str(self._emoji_soku) + " " + str(self._emoji_soku) + " " + str(
-                self._emoji_soku) + "\n" + str(self._emoji_soku) + " :red_car: " + str(self._emoji_soku) + "\n" + str(
-                self._emoji_soku) + " " + str(self._emoji_soku) + " " + str(self._emoji_soku))
+            mentions + "\n" + str(self.emoji_soku) + " " + str(self.emoji_soku) + " " + str(
+                self.emoji_soku) + "\n" + str(self.emoji_soku) + " :red_car: " + str(self.emoji_soku) + "\n" + str(
+                self.emoji_soku) + " " + str(self.emoji_soku) + " " + str(self.emoji_soku))
 
 
 def setup(bot):
