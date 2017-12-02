@@ -1,6 +1,7 @@
 from pixivpy3 import *
 from config.pixivconfig import userid, pw
 import discord
+import asyncio
 from discord.ext import commands
 from time import gmtime, strftime
 import os
@@ -20,6 +21,7 @@ class Pixiv:
         while not self.bot.is_closed():
             if strftime("%H:%M", gmtime()) == "7:30":
                 await self.send_pic(channel, "東方", 1000)
+                await asyncio.sleep(86400)
 
     @commands.command()
     async def gimme2hu(self, ctx):
