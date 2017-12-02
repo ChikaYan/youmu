@@ -109,7 +109,7 @@ class Soku:
         await ctx.channel.send(
             mentions + "\n" + str(self._emoji_soku) + " " + str(self._emoji_soku) + " " + str(
                 self._emoji_soku) + "\n" + str(self._emoji_soku) + " :red_car: " + str(self._emoji_soku) + "\n" + str(
-                self._emoji_soku) + " " + str(self._emoji_soku) + " " + str(self._emoji_soku))
+                self._emoji_soku) + " " + str(self._emoji_soku) + " " + self._emoji_soku)
 
 
 def setup(bot):
