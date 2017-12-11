@@ -26,7 +26,7 @@ class Pixiv:
 
     @commands.command()
     async def gimme2hu(self, ctx):
-        self.send_pic(ctx.channel, "東方", 100)
+        await self.send_pic(ctx.channel, "東方", 100)
 
     async def send_pic(self, channel, tag, mark_min):
         json_result = self.api.search_illust(tag, req_auth=True)
