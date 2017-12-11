@@ -19,9 +19,10 @@ class Pixiv:
         await self.bot.wait_until_ready()
         channel = self.bot.get_channel(383359073229209611)
         while not self.bot.is_closed():
-            # if strftime("%H:%M", gmtime()) == "7:30":
-            await self.send_pic(channel, "東方", 1000)
-            await asyncio.sleep(86400)
+            if strftime("%H:%M", gmtime()) == "7:30":
+                self.api.login(userid, pw)  # login once everyday
+                await self.send_pic(channel, "東方", 1000)
+            await asyncio.sleep(59)
 
     @commands.command()
     async def gimme2hu(self, ctx):
@@ -42,6 +43,7 @@ class Pixiv:
             json_result = self.api.search_illust(**next_page)
 
         # search depth reached -- need to clean bookmarks
+
 
 def setup(bot):
     bot.add_cog(Pixiv(bot))
