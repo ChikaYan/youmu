@@ -11,7 +11,7 @@ class Pixiv:
     def __init__(self, bot):
         self.bot = bot
         self.api = AppPixivAPI()
-        self.api.login(userid, pw)
+        # self.api.login(userid, pw)
         self.search_depth = 50000
         self.bot.loop.create_task(self.daily_touhou())
 
@@ -20,7 +20,6 @@ class Pixiv:
         channel = self.bot.get_channel(383359073229209611)
         while not self.bot.is_closed():
             if strftime("%H:%M", gmtime()) == "7:30":
-                self.api.login(userid, pw)  # login once everyday
                 await self.send_pic(channel, "東方", 1000)
             await asyncio.sleep(59)
 
@@ -29,6 +28,7 @@ class Pixiv:
         await self.send_pic(ctx.channel, "東方", 100)
 
     async def send_pic(self, channel, tag, mark_min):
+        self.api.login(userid, pw)  # login every time before getting json result
         json_result = self.api.search_illust(tag, req_auth=True)
         for i in range(self.search_depth):
             for illust in json_result.illusts:
