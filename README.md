@@ -14,4 +14,14 @@ Command | Usage
 `:!?host ([Message])`| Start hosting at pre-stored IP address and port. If [Message] is given, the message will be shown in the hosting message as well.
 `:!?endhost` | End current host
 `:!?showhost` | List all currently active hosts
-`:!?soku` | Mention all the members that have told their IP to Youmu and call them to soku!
+`:!?soku` | Mention all the members that have told their IP to Youmu and ask them to soku!
+
+### Japanese -> Romaji ###
+Command | Usage
+--------|-------
+`:!?romaji` | Convert the last message that contains hiragana/katakana to romaji. To convert older messages, call the command for multiple times
+
+### Pixiv ###
+Command | Usage
+--------|-------
+`:!?gimme2hu`  | Send a popular pixiv illustration tagged with "touhou"
