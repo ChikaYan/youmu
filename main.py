@@ -3,6 +3,7 @@
 from discord.ext import commands
 from config.keyconfig import KEY
 import logging
+import discord
 
 bot = commands.Bot(command_prefix="!?",
                    description="Discord bot to deal with touhou stuff",
@@ -23,5 +24,6 @@ async def on_ready():
     bot.load_extension("cogs.felix")
     bot.load_extension("cogs.romaji")
     bot.load_extension("cogs.pixiv")
+    await bot.change_presence(game=discord.Game(name="Touhou 12.3 Hisoutensoku"))
 
 bot.run(KEY)
