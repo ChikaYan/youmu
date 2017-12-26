@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 from config.sokuhostconfig import hosts
 from config.hamachiconfig import rooms
+from time import gmtime, strftime
+import asyncio
 
 
 class Soku:
@@ -110,6 +112,17 @@ class Soku:
             mentions + "\n" + str(self.emoji_soku) + " " + str(self.emoji_soku) + " " + str(
                 self.emoji_soku) + "\n" + str(self.emoji_soku) + " :red_car: " + str(self.emoji_soku) + "\n" + str(
                 self.emoji_soku) + " " + str(self.emoji_soku) + " " + str(self.emoji_soku))
+
+    async def clean_hosts(self):
+        await self.bot.wait_until_ready
+        while not self.bot.is_closed():
+            if strftime("%H:%M", gmtime()) == "05:00":
+                for author in self.hostlist:
+                    await self.hostlist[author].edit(content="{} has ended hosting.".format(author.name))
+                self.hostlist = {}
+                await asyncio.sleep(86400)
+            else:
+                await asyncio.sleep(59)
 
 
 def setup(bot):
