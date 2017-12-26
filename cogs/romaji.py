@@ -16,7 +16,7 @@ class Romaji:
                 # the user-sent message contains japanese but is not converted before
                 await ctx.channel.send("{}:\n{}".format(message.content, await self.convert(message.content)))
                 self.jap_log.append(message.id)
-                await clean_log()
+                await self.clean_log()
                 break
 
     async def convert(self, text):
