@@ -1,5 +1,5 @@
 from pixivpy3 import *
-from config.pixivconfig import userid, pw
+from config.pixivconfig import userid, pw, idnum
 import discord
 import asyncio
 from discord.ext import commands
@@ -11,7 +11,6 @@ class Pixiv:
     def __init__(self, bot):
         self.bot = bot
         self.api = AppPixivAPI()
-        # self.api.login(userid, pw)
         self.search_depth = 50000
         self.bot.loop.create_task(self.daily_touhou())
 
@@ -45,6 +44,11 @@ class Pixiv:
             json_result = self.api.search_illust(**next_page)
 
         # search depth reached -- need to clean bookmarks
+
+    async def clean_bookmarks(self):
+        json_result = self.api.user_illusts(idnum, req_auth=True)
+        for illust in json_result.illusts:
+            self.api.illust_bookmark_delete(illust.id)
 
 
 def setup(bot):
